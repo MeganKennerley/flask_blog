@@ -28,22 +28,5 @@ def show_posts(index):
     return render_template("post.html", post=requested_post)
 
 
-@app.route('/random')
-def random_home():
-    random_number = random.randint(1, 10)
-    current_year = dt.now().date().year
-    return render_template("home.html", num=random_number, year=current_year)
-
-
-@app.route('/guess/<name>')
-def guess_name(name):
-    params = {
-        "name": name
-    }
-    response = requests.get(url="https://api.agify.io/", params=params)
-    response2 = requests.get(url="https://api.genderize.io", params=params)
-    return render_template("guess.html", name=response.json()["name"], age=response.json()["age"], gender=response2.json()["gender"])
-
-
 if __name__ == "__main__":
     app.run(debug=True)
